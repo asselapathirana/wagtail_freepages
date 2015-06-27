@@ -1,0 +1,22 @@
+{% extends "demo/standard_page.html" %}
+
+{% block content %}
+    {% include "demo/includes/intro.html" with intro=self.intro only %}
+
+    {% include "demo/includes/carousel.html" with carousel_items=self.carousel_items.all only %}
+{% if self.body %}
+<article>
+    {% for block in self.body %}
+        {% if block.block_type == 'heading' %}
+            <h2>{{ block.value }}</h2>
+        {% else %}
+            <section class="block-{{ block.block_type }}">
+                {{ block }}
+            </section>
+        {% endif %}
+    {% endfor %}
+</article>
+
+{%endif%}
+    {% include "demo/includes/related_links.html" with related_links=self.related_links.all only %}
+{% endblock %}
